@@ -1,0 +1,44 @@
+<h1 class="mt-5"> Selectores anidados</h1>
+<hr>
+<form [formGroup]="myForm" (ngSubmit)="save()">
+    <div class="row mb-3">
+        <label class="form-label">Continente</label>
+        <select class="form-control" formControlName="region">
+            <option value="">--Seleciones continente</option>
+            <option *ngFor="let region of regiones" >{{ region }}</option>
+        </select>
+    </div>
+
+    <div class="row mb-3" *ngIf="paises.length !== 0 ">
+        <label class="form-label">Pais</label>
+        <select class="form-control" formControlName="pais">
+            <option value="">--Seleciones pais</option>
+            <option *ngFor="let pais of paises" [value]="pais.cca3">{{ pais.name.common}}</option>
+        </select>
+    </div>
+
+    <div class="row mb-3" *ngIf="fronteras.length > 0 ">
+        <label class="form-label">Fronteras</label>
+        <select class="form-control" formControlName="frontera">
+            <option value="">--Seleciones pais fronterizo</option>
+            <option *ngFor="let frontera of fronteras" [value]="frontera">{{ frontera}}</option>
+        </select>
+    </div>
+
+    <div class="row" *ngIf="cargando">
+        <div class="col">
+            <div class="alert alert-primary">
+                Cargando...
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <button type="submit" class="btn btn-primary float-end"> Guardar</button>
+        </div>
+    </div>
+</form>
+
+<h3>Formulario</h3>
+<pre>{{myForm.valid}}</pre>
+<pre>{{myForm.value | json}}</pre>
